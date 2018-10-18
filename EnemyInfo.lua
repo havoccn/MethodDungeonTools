@@ -9,7 +9,7 @@ local db
 
 local tinsert,Model_Reset = table.insert,Model_Reset
 
-
+local L = LibStub ("AceLocale-3.0"):GetLocale ( "mdt" )
 
 local tconcat, tremove, tinsert = table.concat, table.remove, table.insert
 
@@ -76,7 +76,7 @@ local currentTab = "tab1"
 local function MakeEnemeyInfoFrame()
     --frame
     local f = AceGUI:Create("Frame")
-    f:SetTitle("Enemy Info")
+    f:SetTitle(L["Enemy Info"])
     f:EnableResize(false)
     f.frame:SetMovable(false)
     function f.frame:StartMoving() end
@@ -97,7 +97,7 @@ local function MakeEnemeyInfoFrame()
     local tabGroup = f.tabGroup
     tabGroup:SetTabs(
             {
-                {text="Enemy Info", value="tab1"},
+                {text=L["Enemy Info"], value="tab1"},
                 --{text="Damage Calc", value="tab2"},
             }
     )
@@ -180,7 +180,7 @@ local function MakeEnemeyInfoFrame()
         f.enemyDataContainer:AddChild(f.enemyDataContainer.idEditBox)
 
         f.enemyDataContainer.healthEditBox = AceGUI:Create("EditBox")
-        f.enemyDataContainer.healthEditBox:SetLabel("Health")
+        f.enemyDataContainer.healthEditBox:SetLabel(L["Health"])
         f.enemyDataContainer.healthEditBox:DisableButton(true)
         f.enemyDataContainer.healthEditBox:SetCallback("OnTextChanged", function(self)
             self:SetText(self.defaultText)
@@ -188,7 +188,7 @@ local function MakeEnemeyInfoFrame()
         f.enemyDataContainer:AddChild(f.enemyDataContainer.healthEditBox)
 
         f.enemyDataContainer.creatureTypeEditBox = AceGUI:Create("EditBox")
-        f.enemyDataContainer.creatureTypeEditBox:SetLabel("Creature Type")
+        f.enemyDataContainer.creatureTypeEditBox:SetLabel(L["Creature Type"])
         f.enemyDataContainer.creatureTypeEditBox:DisableButton(true)
         f.enemyDataContainer.creatureTypeEditBox:SetCallback("OnTextChanged", function(self)
             self:SetText(self.defaultText)
@@ -196,7 +196,7 @@ local function MakeEnemeyInfoFrame()
         f.enemyDataContainer:AddChild(f.enemyDataContainer.creatureTypeEditBox)
 
         f.enemyDataContainer.levelEditBox = AceGUI:Create("EditBox")
-        f.enemyDataContainer.levelEditBox:SetLabel("Level")
+        f.enemyDataContainer.levelEditBox:SetLabel(L["Level"])
         f.enemyDataContainer.levelEditBox:DisableButton(true)
         f.enemyDataContainer.levelEditBox:SetCallback("OnTextChanged", function(self)
             self:SetText(self.defaultText)
@@ -204,7 +204,7 @@ local function MakeEnemeyInfoFrame()
         f.enemyDataContainer:AddChild(f.enemyDataContainer.levelEditBox)
 
         f.enemyDataContainer.countEditBox = AceGUI:Create("EditBox")
-        f.enemyDataContainer.countEditBox:SetLabel("Enemy Forces")
+        f.enemyDataContainer.countEditBox:SetLabel(L["Enemy Forces"])
         f.enemyDataContainer.countEditBox:DisableButton(true)
         f.enemyDataContainer.countEditBox:SetCallback("OnTextChanged", function(self)
             self:SetText(self.defaultText)
@@ -212,7 +212,7 @@ local function MakeEnemeyInfoFrame()
         f.enemyDataContainer:AddChild(f.enemyDataContainer.countEditBox)
 
         f.enemyDataContainer.stealthCheckBox = AceGUI:Create("CheckBox")
-        f.enemyDataContainer.stealthCheckBox:SetLabel("Stealth")
+        f.enemyDataContainer.stealthCheckBox:SetLabel(L["Stealth"])
         f.enemyDataContainer.stealthCheckBox:SetWidth((f.enemyDataContainer.frame:GetWidth()/2)-40)
         f.enemyDataContainer.stealthCheckBox:SetCallback("OnValueChanged", function(self)
             self:SetValue(self.defaultValue)
@@ -220,7 +220,7 @@ local function MakeEnemeyInfoFrame()
         f.enemyDataContainer:AddChild(f.enemyDataContainer.stealthCheckBox)
 
         f.enemyDataContainer.stealthDetectCheckBox = AceGUI:Create("CheckBox")
-        f.enemyDataContainer.stealthDetectCheckBox:SetLabel("Stealth Detect")
+        f.enemyDataContainer.stealthDetectCheckBox:SetLabel(L["Stealth Detect"])
         f.enemyDataContainer.stealthDetectCheckBox:SetWidth((f.enemyDataContainer.frame:GetWidth()/2))
         f.enemyDataContainer.stealthDetectCheckBox:SetCallback("OnValueChanged", function(self)
             self:SetValue(self.defaultValue)
@@ -263,7 +263,7 @@ local function MakeEnemeyInfoFrame()
 
         local buttonWidth = 80
         local sendSpellsButton = AceGUI:Create("Button")
-        sendSpellsButton:SetText("Report")
+        sendSpellsButton:SetText(L["Report"])
         sendSpellsButton:SetWidth(buttonWidth)
         sendSpellsButton:SetCallback("OnClick",function()
             if#f.spellScroll.children<1 then return end
@@ -390,7 +390,7 @@ function MDT:UpdateEnemyInfoFrame(enemyIdx)
     f.characteristicsContainer:ReleaseChildren()
     local characteristicsText = AceGUI:Create("Label")
     characteristicsText:SetWidth(f.characteristicsContainer.frame:GetWidth())
-    characteristicsText:SetText("Affected by:")
+    characteristicsText:SetText(L["Affected by:"])
     f.characteristicsContainer:AddChild(characteristicsText)
     for text,iconPath in pairs(characteristics) do
         if data.characteristics and data.characteristics[text] then

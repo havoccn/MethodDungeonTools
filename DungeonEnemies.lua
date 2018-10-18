@@ -1,6 +1,7 @@
 ---
 --- DateTime: 04.07.2018 12:26
 ---
+local L = LibStub ("AceLocale-3.0"):GetLocale ( "mdt" )
 local MethodDungeonTools = MethodDungeonTools
 local db
 local tonumber,tinsert,slen,pairs,ipairs,tostring,next,type,sformat,twipe,max,tremove,DrawLine = tonumber,table.insert,string.len,pairs,ipairs,tostring,next,type,string.format,table.wipe,math.max,table.remove,DrawLine
@@ -102,6 +103,12 @@ function MDTDungeonEnemyMixin:OnClick(button, down)
 
     if button == "LeftButton" then
         local isCTRLKeyDown = IsControlKeyDown()
+        --create new pull and select it with shift held down
+        if IsShiftKeyDown() then
+            MethodDungeonTools:PresetsAddPull(MethodDungeonTools:GetCurrentPull() + 1)
+            MethodDungeonTools:ReloadPullButtons()
+            MethodDungeonTools:SetSelectionToPull(MethodDungeonTools:GetCurrentPull() + 1)
+        end
         MethodDungeonTools:DungeonEnemies_AddOrRemoveBlipToCurrentPull(self,not self.selected,isCTRLKeyDown)
         MethodDungeonTools:DungeonEnemies_UpdateSelected(MethodDungeonTools:GetCurrentPull())
         MethodDungeonTools:UpdateProgressbar()
@@ -228,9 +235,9 @@ function MethodDungeonTools:DisplayBlipTooltip(blip,shown)
     ]]
     local occurence = (blip.data.isBoss and "") or blip.cloneIdx
 
-    local text = upstairs..data.name.." "..occurence..group.."\nLevel "..data.level.." "..data.creatureType.."\n"..MethodDungeonTools:FormatEnemyHealth(health).." HP\n"
-    text = text .."Forces: "..MethodDungeonTools:FormatEnemyForces(data.count)
-    text = text .."\n\n[Right click for more info]"
+    local text = upstairs..data.name.." "..occurence..group..L["\nLevel "]..data.level.." "..data.creatureType.."\n"..MethodDungeonTools:FormatEnemyHealth(health).." HP\n"
+    text = text ..L["Forces: "]..MethodDungeonTools:FormatEnemyForces(data.count)
+    text = text ..L["\n\n[Right click for more info]"]
     tooltip.String:SetText(text)
 
     if db.tooltipInCorner then
